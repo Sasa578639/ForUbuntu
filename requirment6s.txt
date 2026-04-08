@@ -1,0 +1,36 @@
+BALENA:wget https://github.com/balena-io/etcher/releases/download/v1.12.5/balenaEtcher-1.12.5-x64.AppImage
+
+QGROUND:wget https://github.com/mavlink/qgroundcontrol/releases/download/v3.4.0/QGroundControl.AppImage
+
+TERMIUS:wget https://www.termius.com/download/linux/Termius.deb
+sudo dpkg -i ~/Desktop/имя_файла.deb
+
+VSCODE:
+1-  wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb
+2 - sudo dpkg -i /tmp/code_latest_amd64.deb
+
+VIRUALMACHINE:
+ УСТАНОВКА VMWARE WORKSTATION PRO 17 под Linux
+
+sudo wget https://archive.org/download/vmware-workstation-17.0.0/VMware-Workstation-Full-17.0.0-20800274.x86_64.bundle
+
+sudo chmod a+x VMware-Workstation-Full-17.0.0-20800274.x86_64.bundle
+
+sudo ./VMware-Workstation-Full-17.0.0-20800274.x86_64.bundle
+
+
+ЗАВИСИМОСТИ ДЛЯ ИИ:
+pip install ultralytics --no-deps
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install opencv-python
+pip install numpy matplotlib pillow pyyaml tqdm scipy
+
+clever_show:
+git clone https://github.com/CopterExpress/clever-show.git
+
+Blender:
+# Обновление списка пакетов
+sudo apt update
+
+# Установка Blender
+sudo apt install blender -y
