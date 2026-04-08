@@ -20,10 +20,13 @@ sudo ./VMware-Workstation-Full-17.0.0-20800274.x86_64.bundle
 
 
 ЗАВИСИМОСТИ ДЛЯ ИИ:
-pip install ultralytics --no-deps
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install ultralytics --no-deps -i https://mirrors.aliyun.com/pypi/simple/
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu --no-deps
+pip3 install sympy -i https://mirrors.aliyun.com/pypi/simple/
+pip3 install filelock fsspec jinja2 networkx -i https://mirrors.aliyun.com/pypi/simple/
+pip3 install typing-extensions==4.7.1 -i https://mirrors.aliyun.com/pypi/simple/
 pip install opencv-python
-pip install numpy matplotlib pillow pyyaml tqdm scipy
+#pip install numpy matplotlib pillow pyyaml tqdm scipy
 
 clever_show:
 git clone https://github.com/CopterExpress/clever-show.git
