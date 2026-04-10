@@ -7,6 +7,16 @@ TERMIUS:
 wget https://www.termius.com/download/linux/Termius.deb
 sudo dpkg -i ~/Desktop/имя_файла.deb
 
+запись видео
+sudo apt update
+sudo apt install simplescreenrecorder
+
+просмотр видео:
+# Обновление списка пакетов
+sudo apt update
+
+# Установка VLC
+sudo apt install vlc -y
 
 THONY:
 sudo apt update
