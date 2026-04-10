@@ -1,9 +1,17 @@
-BALENA:wget https://github.com/balena-io/etcher/releases/download/v1.12.5/balenaEtcher-1.12.5-x64.AppImage
+BALENA:
+wget https://github.com/balena-io/etcher/releases/download/v1.12.5/balenaEtcher-1.12.5-x64.AppImage
 
 QGROUND:wget https://github.com/mavlink/qgroundcontrol/releases/download/v3.4.0/QGroundControl.AppImage
 
-TERMIUS:wget https://www.termius.com/download/linux/Termius.deb
+TERMIUS:
+wget https://www.termius.com/download/linux/Termius.deb
 sudo dpkg -i ~/Desktop/имя_файла.deb
+
+
+THONY:
+sudo apt update
+sudo apt install thonny -y
+
 
 VSCODE:
 1-  wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb
