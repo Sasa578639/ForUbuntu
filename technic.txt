@@ -1,0 +1,100 @@
+# Для tf2_web_republisher (обычно из ROS extra)
+sudo apt install ros-noetic-tf2-web-republisher
+
+# Для ros_pytest
+sudo apt install ros-noetic-ros-pytest
+
+sudo apt install ros-noetic-web-video-server
+
+sudo apt install ros-noetic-rosbridge-server
+
+sudo apt install ros-noetic-mavros-extras
+
+sudo apt install ros-noetic-led-msgs
+
+
+# Исключаем cv_camera если проблема с OpenCV
+touch ~/technic_ws/src/cv_camera/CATKIN_IGNORE
+
+ВЕБ_интерфейс_2:
+sudo systemctl stop nginx
+sudo rm -f /etc/nginx/sites-enabled/technic
+sudo rm -f /etc/nginx/sites-available/technic
+
+sudo tee /etc/nginx/sites-available/technic > /dev/null <<'EOF'
+server {
+    listen 80;
+    server_name _;
+    
+    root /home/aleks/.ros/www;
+    index index.html index.htm;
+    
+    # Включаем поддержку символических ссылок
+    disable_symlinks off;
+    
+    location / {
+        autoindex on;
+        autoindex_exact_size off;
+        autoindex_localtime on;
+        try_files $uri $uri/ =404;
+    }
+    
+    # Разрешаем доступ к папкам с файлами
+    location ~* \.(html|css|js|png|jpg|jpeg|gif|svg|ico|json|xml|txt)$ {
+        expires 1d;
+        add_header Cache-Control "public, immutable";
+    }
+}
+EOF
+
+# Права на домашнюю директорию
+sudo chmod 755 /home/aleks
+sudo chmod 755 /home/aleks/.ros
+sudo chmod -R 755 /home/aleks/.ros/www
+
+# Права на все исходные папки Technic
+sudo chmod -R 755 /home/aleks/technic_ws/src/technic/*/www
+sudo chmod -R 755 /home/aleks/technic_ws/src/roswww/www
+sudo chmod -R 755 /home/aleks/technic_ws/src/technic/aruco_pose/www
+
+# Права на промежуточные папки
+sudo chmod 755 /home/aleks/technic_ws
+sudo chmod 755 /home/aleks/technic_ws/src
+sudo chmod 755 /home/aleks/technic_ws/src/technic
+
+
+# Создаем группу и добавляем пользователя
+sudo groupadd -f webusers
+sudo usermod -a -G webusers aleks
+sudo usermod -a -G webusers www-data
+
+# Меняем пользователя в конфиге NGINX
+sudo sed -i 's/user www-data;/user aleks;/' /etc/nginx/nginx.conf
+
+
+sudo ln -sf /etc/nginx/sites-available/technic /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl restart nginx
+
+ВЕБ_интерфейс_1:
+
+
+sudo apt update && sudo apt install nginx -y && \
+sudo tee /etc/nginx/sites-available/technic > /dev/null <<EOF
+server {
+    listen 80;
+    server_name _;
+    root /home/$USER/.ros/www;
+    index index.html index.htm;
+    location / {
+        autoindex on;
+    }
+}
+EOF
+sudo ln -sf /etc/nginx/sites-available/technic /etc/nginx/sites-enabled/ && \
+sudo rm -f /etc/nginx/sites-enabled/default && \
+sudo nginx -t && sudo systemctl restart nginx && sudo systemctl enable nginx && \
+cd ~/technic_ws && source devel/setup.bash && rosrun technic www && \
+sudo chmod -R 755 /home/$USER/.ros && \
+echo "Готово! Откройте http://localhost в браузере"
