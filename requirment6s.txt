@@ -51,6 +51,17 @@ git clone https://github.com/CopterExpress/clever-show.git
 
 Blender:
 # Обновление списка пакетов
+
+чтение образа:
+lsblk
+
+
+deb http://archive.debian.org/debian/ buster main contrib non-free 
+deb http://archive.debian.org/debian/ buster-updates main contrib non-free  
+deb http://archive.debian.org/debian-security buster/updates main contrib non-free
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
+
+sudo dd if=/dev/sdX of=~/flash_image.img bs=4M status=progress
 sudo apt update
 
 # Установка Blender
