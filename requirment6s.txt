@@ -3,6 +3,8 @@ wget https://github.com/balena-io/etcher/releases/download/v1.12.5/balenaEtcher-
 
 QGROUND:wget https://github.com/mavlink/qgroundcontrol/releases/download/v3.4.0/QGroundControl.AppImage
 
+cv2.putText(msg, class_names, (x1, y1-5), 0, 0.5, 0)
+
 TERMIUS:
 wget https://www.termius.com/download/linux/Termius.deb
 sudo dpkg -i ~/Desktop/имя_файла.deb
