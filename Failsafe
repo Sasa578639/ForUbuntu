@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from clover import srv
+from std_srvs.srv import Trigger
+from mavros_msgs.msg import RCIn
+import rospy
+
+rospy.init_node('flight')
+
+get_telemetry = rospy.ServiceProxy('get_telemetry', srv.GetTelemetry)
+land = rospy.ServiceProxy('land', Trigger)
+
+def land_wait():
+    land()
+    while get_telemetry().armed:
+        rospy.sleep(0.2)
+    rospy.loginfo("Посадка завершена")
+
+def rc_callback(msg):
+    if len(msg.channels) > 7 and msg.channels[7] > 1800 and get_telemetry().armed:
+        rospy.loginfo("Запуск посадки...")
+        land_wait()
+
+rospy.Subscriber('/mavros/rc/in', RCIn, rc_callback)
+rospy.loginfo("Ожидание 8 канала вверх (>1800)")
+rospy.spin()
